@@ -1,0 +1,68 @@
+<h3>Nuevo propietario</h3>
+<br>
+<div class="row">
+    <div class="col-sm-8">
+        <h5>Información general</h5>
+        <form (ngSubmit)="onSubmit()" [formGroup]="ownerForm">
+            <div class="row">
+                <div class="form-group col-4 mb-3">
+                    <label class="form-label" for="firstname">Nombre(s)</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                        <input class="form-control" type="text" id="firstname" name="firstname" required formControlName="firstname">
+                    </div>
+                    <p *ngIf="ownerForm.get('firstname')?.touched && ownerForm.get('firstname')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                </div>
+                <div class="form-group col-4 mb-3">
+                    <label class="form-label" for="lastnameF">Apellido Paterno</label>
+                    <input class="form-control" type="text" id="lastnameF" name="lastnameF" required formControlName="lastnameF">
+                    <p *ngIf="ownerForm.get('lastnameF')?.touched && ownerForm.get('lastnameF')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                </div>
+                <div class="form-group col-4 mb-3">
+                    <label class="form-label" for="lastnameM">Apellido Materno</label>
+                    <input class="form-control" type="text" id="lastnameM" name="lastnameM" required formControlName="lastnameM">
+                    <p *ngIf="ownerForm.get('lastnameM')?.touched && ownerForm.get('lastnameM')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-3 mb-3">
+                    <label class="form-label" for="cedula">Número de cédula</label>
+                    <input class="form-control" id="cedula" name="cedula" required formControlName="cedula">
+                    <p *ngIf="ownerForm.get('cedula')?.touched && ownerForm.get('cedula')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                </div>
+                <div class="form-group col-6">
+                    <label class="form-label" for="email">Correo electrónico</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+                        <input class="form-control readonly" type="text" id="email" name="email" required formControlName="email">
+                    </div>
+                    <p *ngIf="ownerForm.get('email')?.touched && ownerForm.get('email')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                </div>
+                <div class="form-group col-3">
+                    <label class="form-label" for="telephone">Teléfono</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone"></i></span>
+                        <input class="form-control readonly" type="text" id="telephone" name="telephone" required formControlName="telephone">
+                        <p *ngIf="ownerForm.get('telephone')?.touched && ownerForm.get('telephone')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label class="form-label" for="address">Dirección</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-map"></i></span>
+                        <input class="form-control readonly" type="text" id="address" name="address" required formControlName="address">
+                    </div>
+                    <p *ngIf="ownerForm.get('address')?.touched && ownerForm.get('address')?.errors?.['required']" class="alert alert-danger mt-1">Este campo es requerido</p>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary me-1" type="submit" [disabled]="ownerForm.invalid">Registrar</button>
+                <a class="btn btn-secondary" (click)="goBack()">Regresar</a>
+            </div>
+        </form>
+        <br>
+    </div>
+</div>
