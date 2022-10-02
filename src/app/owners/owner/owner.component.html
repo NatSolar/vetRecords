@@ -65,10 +65,12 @@
                 <div class="card-body">
                   <p class="mb-4"><span class="text-primary font-italic me-1">Mascotas:</span></p>
                   <ul>
-                    <li *ngFor="let pet of pets">
-                        <img [src]="getAvatar(pet.specie)" class="rounded-circle mb-1" style="width: 45px;" alt="Avatar" /> 
-                        {{pet.name}}
-                    </li>
+                    <div *ngIf="pets.length > 0; else noData">
+                      <li *ngFor="let pet of pets">
+                          <img [src]="getAvatar(pet.specie)" class="rounded-circle mb-1" style="width: 45px;" alt="Avatar" /> 
+                          {{pet.name}}
+                      </li>
+                  </div>
                   </ul>
                 </div>
               </div>
@@ -79,7 +81,7 @@
                   <p class="mb-4"><span class="text-primary font-italic me-1">Últimas citas:</span></p>
                   <ul>
                     <li>
-                        29-09-2022 10:50 am - <span class="text-primary font-italic me-1">Rocky</span>
+                        Temporal -- 29-09-2022 10:50 am - <span class="text-primary font-italic me-1">Rocky</span>
                     </li>
                   </ul>
                 </div>
@@ -93,3 +95,6 @@
         <a class="btn btn-secondary me-1" (click)="goBack()">Regresar</a>
     </div>
   </section>
+  <ng-template #noData>
+    <p>No tiene registradas mascotas.</p>
+  </ng-template>
