@@ -7,5 +7,6 @@ export interface Record {
     genre: string,
     specie: string,
     color: string,
-    ownerNm: string
+    ownerId: number
+    ownerNm?: string
 }

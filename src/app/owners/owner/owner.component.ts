@@ -28,7 +28,7 @@ export class OwnerComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRouter.params.subscribe(({id}) => {
       this.ownersService.getById(id).subscribe({
-        next: data => this.owner = data,
+        next: data => this.owner = data[0],
         error: err => console.warn(err)
       })
     })

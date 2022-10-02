@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Owner } from '../interfaces/owner'; 
 
 @Injectable({
@@ -8,33 +9,45 @@ import { Owner } from '../interfaces/owner';
 })
 export class OwnerService {
 
-private baseUrl: string = 'https://6319fd416b4c78d91b49bf32.mockapi.io' //API creada en mockAPI
+  private readonly API_URL: string = environment.API_URL
+  private readonly API_KEY: string = environment.API_KEY
 
   constructor(private http: HttpClient) { }
 
-  getAll() : Observable<Owner[]> {
-    const url = `${this.baseUrl}/owners`
-    return this.http.get<Owner[]>(url)
+  getAll(): Observable<Owner[]>{
+    return this.http.get<Owner[]>(`${this.API_URL}/owners?select=*`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
   }
 
-  getById(id: number) : Observable<Owner> {
-    const url = `${this.baseUrl}/owners/${id}`
-    return this.http.get<Owner>(url)
+  getById(id: number) : Observable<Owner[]> {
+    return this.http.get<Owner[]>(`${this.API_URL}/owners?id=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
   }
 
   addOwner(owner:Owner): Observable<Owner> {
-    const url = `${this.baseUrl}/owners`
-    return this.http.post<Owner>(url, owner)
+    const headers = { 'apiKey': this.API_KEY, 'content-type': 'application/json'}
+    const body = JSON.stringify(owner)
+    return this.http.post<Owner>(`${this.API_URL}/owners`, body, {'headers': headers})
   }
 
   updateOwner(owner:Owner, id: number):Observable<void>{
-    const url = `${this.baseUrl}/owners/${id}`
-    return this.http.put<void>(url, owner)
+    const headers = { 'apiKey': this.API_KEY, 'content-type': 'application/json'}
+    const body = JSON.stringify(owner)
+    return this.http.patch<void>(`${this.API_URL}/owners?id=eq.${id}`, body, {'headers': headers})
   }
 
   deleteOwner(id:number){
-    const url = `${this.baseUrl}/owners/${id}`
-    return this.http.delete<void>(url)
+    return this.http.delete<void>(`${this.API_URL}/owners?id=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
   }
 
 }

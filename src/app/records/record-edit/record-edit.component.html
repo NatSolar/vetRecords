@@ -1,1 +1,56 @@
-<p>record-edit works!</p>
+<h4>Información del paciente</h4>
+<br>
+<div class="col-sm-8">
+    <form #recordForm="ngForm">
+        <div class="row">
+            <div class="form-group col-4 mb-3">
+                <label class="form-label" for="name">Nombre de mascota</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                    <input class="form-control" type="text" id="name" name="name" [(ngModel)]="record.name" required>
+                </div>
+            </div>
+            <div class="form-group col-6 mb-3">
+                <label class="form-label" for="ownerNm">Nombre del dueño</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="ownerNm" name="ownerNm" readonly [(ngModel)]="record.ownerNm" required>
+                    <button class="btn btn-outline-secondary" type="button" id="openModal" (click)="open()">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4 mb-3">
+                <label class="form-label" for="birthday">Fecha de nacimiento</label>
+                <input class="form-control" id="birthday" name="birthday" type="date" placeholder="dd-mm-yyyy" required [(ngModel)]="record.birthday">
+            </div>
+            <div class="form-group col-4">
+                <label class="form-label" for="breed">Raza</label>
+                <input class="form-control" type="text" id="breed" name="breed" required [(ngModel)]="record.breed">
+            </div>
+            <div class="form-group col-4">
+                <label class="form-label" for="genre">Género</label>
+                <select class="form-select" id="genre" name="genre" title="Género de mascota" required [(ngModel)]="record.genre">
+                    <option value="" disabled selected>Seleccione un género</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label class="form-label" for="specie">Especie</label>
+                <input class="form-control" type="text" id="specie" name="specie" required [(ngModel)]="record.specie">
+            </div>
+            <div class="form-group col-6">
+                <label class="form-label" for="color">Color</label>
+                <input class="form-control" type="text" id="color" name="color" required [(ngModel)]="record.color">
+            </div>
+        </div>
+        <br>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary me-1" (click)="editRecord(recordForm)">Modificar</a>
+            <a class="btn btn-secondary me-1" (click)="goBack()">Regresar</a>
+        </div>
+    </form>
+    <br>
+</div>

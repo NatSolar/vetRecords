@@ -8,6 +8,7 @@ import { OwnerEditComponent } from './owner-edit/owner-edit.component';
 import { OwnerNewComponent } from './owner-new/owner-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OwnerSelectComponent } from './owner-select/owner-select.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OwnersComponent,
     OwnerComponent,
     OwnerEditComponent,
-    OwnerNewComponent
+    OwnerNewComponent,
+    OwnerSelectComponent
   ],
   imports: [
     CommonModule,

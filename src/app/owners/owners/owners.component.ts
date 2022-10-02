@@ -28,7 +28,7 @@ export class OwnersComponent implements OnInit {
         this.toastr.success('Se ha eliminado exitosamente el propietario.')
         setTimeout(()=>{
           location.reload();
-        }, 2000)
+        }, 1000)
       },
       error: err => {
         console.warn('Error: ', err)

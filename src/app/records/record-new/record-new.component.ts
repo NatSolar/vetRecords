@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Record } from 'src/app/interfaces/record';
 import { RecordsService } from 'src/app/services/records.service';
 import { Location } from '@angular/common'; 
+import { OwnerSelectComponent } from '../../owners/owner-select/owner-select.component';
+import { Owner } from 'src/app/interfaces/owner';
 
 @Component({
   selector: 'app-record-new',
   templateUrl: './record-new.component.html',
   styleUrls: ['./record-new.component.css']
 })
-export class RecordNewComponent implements OnInit {
+export class RecordNewComponent {
 
   record : Record = {
     name: '',
@@ -20,9 +22,10 @@ export class RecordNewComponent implements OnInit {
     genre: '',
     specie: '',
     color: '',
-    ownerNm: ''
+    ownerId: 0
   }
 
+  ownerId: number = 0;
   ownerNm: string = "";
 
   constructor(private readonly recordsService: RecordsService, 
@@ -30,14 +33,12 @@ export class RecordNewComponent implements OnInit {
               private readonly toastr: ToastrService,
               private readonly modalService: NgbModal) { }
 
-  ngOnInit(): void {
-  }
-
   onSubmit(contactForm : any){
     this.record = contactForm.value
-    this.record.ownerNm = this.ownerNm
     let age = this.calculateAge(this.record.birthday);
     this.record.yearsOld = age
+    this.record.ownerId = this.ownerId
+    this.record.ownerNm! = this.ownerNm
     this.recordsService.addRecord(this.record).subscribe({
       next: () => {
         this.toastr.success('Se ha registrado exitosamente el paciente!')
@@ -52,7 +53,7 @@ export class RecordNewComponent implements OnInit {
 
   calculateAge(birthdate: string): number{
     let age:number = 0
-    const [month, day, year] = birthdate.split('-')
+    const [year, month, day] = birthdate.split('-')
     let newDate = new Date(+year, +month - 1, +day);
     if (newDate) {
       const timeDiff = Math.abs(Date.now() - newDate.getTime() );
@@ -66,10 +67,11 @@ export class RecordNewComponent implements OnInit {
   }
 
   open() {
-    /*const modalRef = this.modalService.open(SelectOwnerComponent);
+    const modalRef = this.modalService.open(OwnerSelectComponent);
     modalRef.componentInstance.emitService.subscribe((emmitedValue: Owner) => {
       this.ownerNm = emmitedValue.firstname + " " + emmitedValue.lastnameF + " " + emmitedValue.lastnameM
-    });*/
+      this.ownerId = emmitedValue.id!
+    });
   }
 
 }
