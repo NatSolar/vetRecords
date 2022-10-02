@@ -1,5 +1,5 @@
-import { Vaccine } from './vaccine';
+import { Vaccines } from './vaccines';
 
 export interface AdditionalRecord {
-    vaccines: Vaccine[]
+    vaccines: Vaccines
 }

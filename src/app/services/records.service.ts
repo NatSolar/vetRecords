@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, mergeMap, of, zip, tap, from, map, toArray, forkJoin } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Record } from '../interfaces/record';
-import { Owner } from '../interfaces/owner';
 import { OwnerService } from './owners.service';
 
 @Injectable({
