@@ -39,13 +39,31 @@
         <div class="row">
             <div class="form-group col-6">
                 <label class="form-label" for="specie">Especie</label>
-                <input class="form-control" type="text" id="specie" name="specie" required [(ngModel)]="record.specie">
+                <select class="form-select" id="specie" name="specie" title="Especie de mascota" required [(ngModel)]="record.specie">
+                    <option value="" disabled selected>Seleccione una especie</option>
+                    <option value="Canina">Canina</option>
+                    <option value="Felina">Felina</option>
+                    <option value="Otros">Otros</option>
+                </select>
             </div>
             <div class="form-group col-6">
                 <label class="form-label" for="color">Color</label>
                 <input class="form-control" type="text" id="color" name="color" required [(ngModel)]="record.color">
             </div>
         </div>
+        <br>
+        <h6>Examen físico</h6>
+        <br>
+        <h6>Vacunas</h6>
+        <app-vaccines></app-vaccines>
+        <br>
+        <h6>Medicamentos e inyectables</h6>
+        <br>
+        <h6>Desparasitación</h6>
+        <br>
+        <h6>Exámenes</h6>
+        <br>
+        <h6>Próximas citas</h6>
         <br>
         <div class="d-flex justify-content-end">
             <a class="btn btn-primary me-1" (click)="editRecord(recordForm)">Modificar</a>

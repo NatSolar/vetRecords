@@ -5,7 +5,7 @@
         <div class="col-lg-8">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <img src="https://64.media.tumblr.com/874279864db52e9d65b87609fa467000/4126a741b216fb15-23/s540x810/4fc1b8f4d31447dbef2b836be865a936997518ba.pnj" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{owner.firstname}} {{owner.lastnameF}}</h5>
             </div>
           </div>
@@ -65,9 +65,9 @@
                 <div class="card-body">
                   <p class="mb-4"><span class="text-primary font-italic me-1">Mascotas:</span></p>
                   <ul>
-                    <li>
-                        <img [src]="getAvatar(1)" class="rounded-circle" style="width: 50px;" alt="Avatar" /> 
-                        Rocky
+                    <li *ngFor="let pet of pets">
+                        <img [src]="getAvatar(pet.specie)" class="rounded-circle mb-1" style="width: 45px;" alt="Avatar" /> 
+                        {{pet.name}}
                     </li>
                   </ul>
                 </div>

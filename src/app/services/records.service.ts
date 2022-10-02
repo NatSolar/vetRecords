@@ -63,4 +63,12 @@ export class RecordsService {
     })
   }
 
+  getAllPetsByOwnerId(ownerId: number): Observable<Record[]> {
+    return this.http.get<Record[]>(`${this.API_URL}/records?ownerId=eq.${ownerId}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
 }

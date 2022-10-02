@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-12">
+        <form #vaccineForm="ngForm" (ngSubmit)="onSubmit()">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Distemper</th>
+                        <th scope="col">Hepatitis (CAV-2)</th>
+                        <th scope="col">Parainfluenza</th>
+                        <th scope="col">Leptospirosis</th>
+                        <th scope="col">Parvovirus</th>
+                        <th scope="col">Bordetella</th>
+                        <th scope="col">Giardia</th>
+                        <th scope="col">Rabia</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gvaccine of generalVaccines; let i = index">
+                        <td>
+                            {{gvaccine.yearsOld}} año
+                        <td>
+                            <input id="date{{i}}" class="form-control" type="date" name="date" value="{{gvaccine.date}}" readonly disabled>
+                        </td>
+                        <td *ngFor="let vac of gvaccine.vaccines">
+                            <input class="form-check-input" type="checkbox" id="checkbox{{vac.id}}" readonly [checked]="vac.applied" disabled>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{count+1}} año
+                        <td>
+                            <input id="date" name="date" class="form-control" type="date" [(ngModel)]="lineVaccine.date">
+                        </td>
+                        <td *ngFor="let single of lineVaccine.vaccines; let c = index">
+                            <input class="form-check-input" type="checkbox" name="enabled" [(ngModel)]="single.applied">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" type="button" type="submit">Agregar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

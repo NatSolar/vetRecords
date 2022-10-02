@@ -1,0 +1,10 @@
+table {
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+}
+
+th, td {
+    text-align: center;
+    vertical-align: middle;
+  }

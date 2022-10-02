@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Record } from 'src/app/interfaces/record';
 import { RecordsService } from 'src/app/services/records.service';
 
@@ -11,7 +12,8 @@ export class RecordsComponent implements OnInit {
 
   records: Record[] = []
 
-  constructor(private recordsService: RecordsService) { }
+  constructor(private recordsService: RecordsService,
+              private readonly toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.recordsService.getAll().subscribe({
@@ -20,8 +22,19 @@ export class RecordsComponent implements OnInit {
       })
   }
 
-  deleteRecord(id: any){
-
+  deleteRecord(id: number){
+    this.recordsService.deleteRecord(id).subscribe({
+      next: () => {
+        this.toastr.success('Se ha eliminado exitosamente el paciente.')
+        setTimeout(()=>{
+          location.reload();
+        }, 1000)
+      },
+      error: err => {
+        console.warn('Error: ', err)
+        this.toastr.error('Se ha producido un error! ', err)
+      }
+    })
   }
 
 }

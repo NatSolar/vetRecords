@@ -22,7 +22,7 @@ export class OwnersComponent implements OnInit {
       })
   }
 
-  deleteOwner(id: any){
+  deleteOwner(id: number){
     this.ownersService.deleteOwner(id).subscribe({
       next: () => {
         this.toastr.success('Se ha eliminado exitosamente el propietario.')

@@ -8,6 +8,7 @@ import { RecordEditComponent } from './record-edit/record-edit.component';
 import { RecordNewComponent } from './record-new/record-new.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VaccinesComponent } from './components/vaccines/vaccines.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RecordsComponent,
     RecordComponent,
     RecordEditComponent,
-    RecordNewComponent
+    RecordNewComponent,
+    VaccinesComponent
   ],
   imports: [
     CommonModule,
