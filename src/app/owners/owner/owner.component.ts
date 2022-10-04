@@ -5,6 +5,8 @@ import { OwnerService } from 'src/app/services/owners.service';
 import { Location } from '@angular/common';
 import { Record } from '../../interfaces/record';
 import { RecordsService } from '../../services/records.service';
+import { Appointment } from '../../interfaces/appointment';
+import { AppointmentsService } from '../../services/appointments.service';
 
 @Component({
   selector: 'app-owner',
@@ -24,6 +26,9 @@ export class OwnerComponent implements OnInit {
   }
 
   pets: Record[] = []
+  appointments: Appointment[] = []
+  appointment!: Appointment
+  petsName: string[] = []
   
   urlAvatar!: string
 
@@ -31,7 +36,8 @@ export class OwnerComponent implements OnInit {
     private activatedRouter : ActivatedRoute, 
     private ownersService: OwnerService, 
     private location: Location,
-    private readonly recordsService: RecordsService
+    private readonly recordsService: RecordsService,
+    private readonly appointmentsService: AppointmentsService
     ) { }
 
   ngOnInit(): void {
@@ -44,8 +50,11 @@ export class OwnerComponent implements OnInit {
         next: resp => this.pets = resp,
         error: err => console.warn(err)
       })
+      this.appointmentsService.getByOwnerId(id).subscribe({
+        next: data => this.appointments = data,
+        error: err => console.warn(err)
+      })
     })
-
   }
 
   goBack() : void{
@@ -69,5 +78,13 @@ export class OwnerComponent implements OnInit {
    } 
    return this.urlAvatar;
   }
+
+  getPetNameFromId(id:number) {
+    if(this.pets.length > 0 && id != null){
+      return this.pets.find(pet => pet.id === id)!.name
+    } else {
+      return '';
+    }
+}
 
 }

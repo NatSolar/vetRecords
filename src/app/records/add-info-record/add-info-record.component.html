@@ -1,0 +1,250 @@
+<h4>Información del paciente</h4>
+<section>
+    <div class="container py-3">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img [src]="getAvatar(record.specie)" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{record.name}}</h5>
+              <p class="text-muted mb-1">{{record.yearsOld}} años</p>
+              <p class="text-muted mb-1">{{record.breed}}</p>
+              <p class="text-muted mb-4">Dueño: {{owner.firstname!}} {{owner.lastnameF!}} {{owner.lastnameM!}}</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary" (click)="add(6)">Agregar cita</button>
+                <!--<button type="button" class="btn btn-outline-primary ms-1" [routerLink]="['/record-edit', record.id]">Editar</button>-->
+              </div>
+            </div>
+          </div>
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <p class="mb-4"><span class="text-primary font-italic me-1">Próximas citas</span></p>
+              <ul class="ul-custom">
+                <div *ngIf="appointments.length > 0; else noDataAppointment">
+                  <li *ngFor="let appointment of appointments">
+                    {{appointment.title}} - {{appointment.start | date}}
+                </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <br>
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <p class="mb-2"><span class="text-primary font-italic me-1">Observaciones</span></p>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="add(1)">Agregar</button>
+                    </div>
+                </div>
+                <ul>
+                  <div *ngIf="generalData.observations.length > 0; else noData">
+                    <li *ngFor="let observation of generalData.observations">
+                      {{observation.regDt | date}} : {{observation.observation}}
+                      <span class="cal-event-actions ng-star-inserted">
+                        <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                      </span>
+                      <span class="cal-event-actions ng-star-inserted">
+                        <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(observation.id!, 1)"><i class="bi bi-trash"></i></a>
+                      </span>
+                  </li>
+                  </div>
+                </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Nombre completo</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{record.name}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Año de nacimiento</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{record.birthday}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Raza</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{record.breed}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Género</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{record.genre}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Especie</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{record.specie}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Color</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{record.color}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <p class="mb-2"><span class="text-primary font-italic me-1">Desparasitación</span></p>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="add(2)">Agregar</button>
+                        </div>
+                    </div>
+                    <ul>
+                      <div *ngIf="generalData.dewormings.length > 0; else noData">
+                        <li *ngFor="let deworming of generalData.dewormings">
+                          <p class="mb-2">
+                            <span class="text-primary font-italic me-1">Aplicada: </span>{{deworming.regDt}}
+                            <span class="text-primary font-italic me-1">, antihelmíntico: </span> {{deworming.anthelmintic}}
+                            <span class="text-primary font-italic me-1">, próxima: </span> {{deworming.nextDate}}
+                            <span class="cal-event-actions ng-star-inserted">
+                              <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                            </span>
+                            <span class="cal-event-actions ng-star-inserted">
+                              <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(deworming.id!, 2)"><i class="bi bi-trash"></i></a>
+                            </span>
+                          </p>
+                      </li>
+                      </div>
+                    </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <p class="mb-2"><span class="text-primary font-italic me-1">Exámenes</span></p>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="add(3)">Agregar</button>
+                        </div>
+                    </div>
+                    <ul>
+                      <div *ngIf="generalData.exams.length > 0; else noData">
+                        <li *ngFor="let exams of generalData.exams">
+                          {{exams.regDt | date}} : {{exams.name}}
+                          <span class="cal-event-actions ng-star-inserted">
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                          </span>
+                          <span class="cal-event-actions ng-star-inserted">
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(exams.id!, 3)"><i class="bi bi-trash"></i></a>
+                          </span>
+                      </li>
+                      </div>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <p class="mb-2"><span class="text-primary font-italic me-1">Examen físico (peso)</span></p>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="add(4)">Agregar</button>
+                        </div>
+                    </div>
+                    <ul>
+                      <div *ngIf="generalData.physicalExams.length > 0; else noData">
+                        <li *ngFor="let physicalExam of generalData.physicalExams">
+                          {{physicalExam.regDt | date}} : {{physicalExam.weight}} kg
+                          <span class="cal-event-actions ng-star-inserted">
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                          </span>
+                          <span class="cal-event-actions ng-star-inserted">
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(physicalExam.id!, 4)"><i class="bi bi-trash"></i></a>
+                          </span>
+                      </li>
+                      </div>
+                    </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-8">
+                            <p class="mb-2"><span class="text-primary font-italic me-1">Medicamentos e inyectables</span></p>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="add(5)">Agregar</button>
+                        </div>
+                    </div>
+                    <ul>
+                      <div *ngIf="generalData.injectables.length > 0; else noData">
+                        <li *ngFor="let injectable of generalData.injectables">
+                          {{injectable.regDt | date}} - {{injectable.name}}
+                          <span class="cal-event-actions ng-star-inserted">
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                          </span>
+                          <span class="cal-event-actions ng-star-inserted">
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(injectable.id!, 5)"><i class="bi bi-trash"></i></a>
+                          </span>
+                      </li>
+                      </div>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <h6>Vacunas</h6>
+    <app-vaccines></app-vaccines>
+  <br>
+  <div class="d-flex justify-content-end">
+    <a class="btn btn-secondary me-1" (click)="goBack()">Regresar</a>
+  </div>
+
+  <ng-template #noDataAppointment>
+    <p>No tiene citas registradas.</p>
+  </ng-template>
+
+  <ng-template #noData>
+    <p>No hay información registrada.</p>
+  </ng-template>

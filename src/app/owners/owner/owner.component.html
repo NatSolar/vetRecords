@@ -78,11 +78,13 @@
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Últimas citas:</span></p>
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Citas registradas:</span></p>
                   <ul>
-                    <li>
-                        Temporal -- 29-09-2022 10:50 am - <span class="text-primary font-italic me-1">Rocky</span>
+                    <div *ngIf="appointments.length > 0; else noDataAppointment">
+                      <li *ngFor="let appointment of appointments; let i = index">
+                        {{appointment.start | date: 'medium'}} - <span class="text-primary font-italic me-1">{{getPetNameFromId(appointment.recordId)}}</span>
                     </li>
+                    </div>
                   </ul>
                 </div>
               </div>
@@ -97,4 +99,7 @@
   </section>
   <ng-template #noData>
     <p>No tiene registradas mascotas.</p>
+  </ng-template>
+  <ng-template #noDataAppointment>
+    <p>No tiene citas registradas.</p>
   </ng-template>

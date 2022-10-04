@@ -1,60 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Vaccines } from 'src/app/interfaces/vaccines';
+import { GeneralDataService } from '../../../services/generalData.service';
 
 @Component({
   selector: 'app-vaccines',
   templateUrl: './vaccines.component.html',
   styleUrls: ['./vaccines.component.css']
 })
-export class VaccinesComponent implements OnInit {
 
-  lineVaccine : Vaccines = 
-    { petId: 0,
-      yearsOld: 1,
-      date: "",
-      vaccines: [
-        { id: 0, name: "Distemper", applied: false },
-        { id: 1, name: "Hepatitis", applied: false },
-        { id: 2, name: "Parainfluenza", applied: false },
-        { id: 3, name: "Leptospirosis", applied: false },
-        { id: 4, name: "Parvovirus", applied: false },
-        { id: 5, name: "Bordetella", applied: false },
-        { id: 6, name: "Giardia", applied: false },
-        { id: 7, name: "Rabia", applied: false }
-      ]
-    }
+export class VaccinesComponent implements OnInit  {
+
+  petId:number = 0
+
+  lineVaccine : Vaccines = {
+    petId: 0,
+    yearsOld: 0,
+    date: '',
+    vac1: false,
+    vac2: false,
+    vac3: false,
+    vac4: false,
+    vac5: false,
+    vac6: false,
+    vac7: false,
+    vac8: false,
+    unit: ''
+  }
 
   count: number = 0
-
   generalVaccines: Vaccines[] =[]
 
-  constructor() { }
+  constructor(private readonly vaccinesService: GeneralDataService, 
+              private readonly toastr: ToastrService,
+              private activatedRouter : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRouter.params.subscribe(({id}) => {
+      this.petId = id
+      this.vaccinesService.getVaccinesByRecordId(id).subscribe({
+        next: data => {
+          this.generalVaccines = data.sort((a, b) => a.date.localeCompare(b.date))
+          this.count = this.generalVaccines.length
+        },
+        error: err => console.warn(err)
+      })
+    })
+
+    
     
   }
 
   onSubmit(){
-    this.generalVaccines.push(this.lineVaccine)
     this.count = this.generalVaccines.length
-    this.lineVaccine = {
-      petId: 0,
-      yearsOld: 1,
-      date: "",
-      vaccines: [
-        { id: 0, name: "Distemper", applied: false },
-        { id: 1, name: "Hepatitis", applied: false },
-        { id: 2, name: "Parainfluenza", applied: false },
-        { id: 3, name: "Leptospirosis", applied: false },
-        { id: 4, name: "Parvovirus", applied: false },
-        { id: 5, name: "Bordetella", applied: false },
-        { id: 6, name: "Giardia", applied: false },
-        { id: 7, name: "Rabia", applied: false }
-      ]
-    }
+    let vaccine = this.lineVaccine
+    vaccine.petId = this.petId
 
-    console.log(this.generalVaccines)
-
+    this.vaccinesService.addVaccine(this.lineVaccine).subscribe({
+      next: () => {
+        this.toastr.success('Se ha registrado exitosamente las vacunas.')
+        this.generalVaccines.push(this.lineVaccine)
+        this.lineVaccine = { petId: 0, yearsOld: 0, date: '', vac1: false, vac2: false, vac3: false, vac4: false, vac5: false, vac6: false, vac7: false, vac8: false, unit: '' }
+      },
+      error: err => console.warn(err)
+    })
     
   }
+
+  deleteVaccine(id: number){
+    this.vaccinesService.deleteVaccine(id).subscribe({
+      next: () => {
+        this.toastr.success('Se ha eliminado la vacuna seleccionada.')
+        this.generalVaccines.pop()
+      },
+      error: err => console.warn(err)
+    })
+  }
+
 }

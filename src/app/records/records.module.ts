@@ -9,6 +9,7 @@ import { RecordNewComponent } from './record-new/record-new.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VaccinesComponent } from './components/vaccines/vaccines.component';
+import { AddInfoRecordComponent } from './add-info-record/add-info-record.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { VaccinesComponent } from './components/vaccines/vaccines.component';
     RecordComponent,
     RecordEditComponent,
     RecordNewComponent,
-    VaccinesComponent
+    VaccinesComponent,
+    AddInfoRecordComponent
   ],
   imports: [
     CommonModule,
