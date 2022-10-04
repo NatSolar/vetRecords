@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Vaccines } from 'src/app/interfaces/vaccines';
@@ -13,6 +13,8 @@ import { GeneralDataService } from '../../../services/generalData.service';
 export class VaccinesComponent implements OnInit  {
 
   petId:number = 0
+  
+  @Input('readOnly') readOnly: any
 
   lineVaccine : Vaccines = {
     petId: 0,

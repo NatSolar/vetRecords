@@ -14,7 +14,7 @@
                         <th scope="col">Bordetella</th>
                         <th scope="col">Giardia</th>
                         <th scope="col">Rabia</th>
-                        <th scope="col"></th>
+                        <th scope="col" *ngIf="readOnly!=true"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                         <td>
                             <input class="form-check-input" type="checkbox" readonly [checked]="vaccine.vac8" disabled>
                         </td>
-                        <td>
+                        <td *ngIf="readOnly!=true">
                             <span class="cal-event-actions ng-star-inserted">
                                 <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
                               </span>
@@ -58,7 +58,7 @@
                               </span>
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="readOnly!=true">
                         <td>
                             <input type="number" class="form-control" id="yearsOld" name="yearsOld" [(ngModel)]="lineVaccine.yearsOld">
                             <select class="form-select" [(ngModel)]="lineVaccine.unit" name="unit" id="unit">
