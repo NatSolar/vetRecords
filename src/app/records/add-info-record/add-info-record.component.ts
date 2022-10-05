@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +18,11 @@ import { Observation } from '../../interfaces/observations';
 import { GeneralDataService } from '../../services/generalData.service';
 import { AdditionalRecord } from 'src/app/interfaces/additionalRecord';
 import { AppointmentNewComponent } from 'src/app/appointments/components/appointment-new/appointment-new.component';
+import { DewormingComponent } from '../components/deworming/deworming.component';
+import { ExamComponent } from '../components/exam/exam.component';
+import { InjectablesComponent } from '../components/injectables/injectables.component';
+import { ObservationComponent } from '../components/observation/observation.component';
+import { Exam } from '../../interfaces/exam';
 
 @Component({
   selector: 'app-add-info-record',
@@ -39,6 +44,7 @@ export class AddInfoRecordComponent implements OnInit {
 
   urlAvatar!:string
   recordForm! : FormGroup
+  petId!: number
 
   constructor(
     private location: Location, 
@@ -66,6 +72,7 @@ export class AddInfoRecordComponent implements OnInit {
       zip(callRecords, callOwner, callAppointments, callDewormings, callInjectables, callObservations, callPhysicalExams, callExams).subscribe((
         [results1, results2, results3, results4, results5, results6, results7, results8]) => {
         this.record = results1[0],
+        this.petId = this.record.id!
         this.owner = results2[0],
         this.appointments = results3
         this.generalData.dewormings = results4
@@ -101,71 +108,62 @@ export class AddInfoRecordComponent implements OnInit {
 
   delete(id:number, arg:number){
 
-    if(arg == 1){
-      this.generalDataService.deleteObservation(id).subscribe({
-        next: () => {
-          this.toastr.success('Se ha eliminado la observación.')
-          setTimeout(()=>{
-            this.router.navigate(['records']);
-          }, 1000)
-        },
-        error: err => {
-          console.warn('Error: ', err)
-          this.toastr.error('Se ha producido un error! ', err)
-        }
-      })
-    } else if (arg == 2){
-      this.generalDataService.deleteDeworming(id).subscribe({
-        next: () => {
-          this.toastr.success('Se ha eliminado la desparasitación.')
-          setTimeout(()=>{
-            this.router.navigate(['records']);
-          }, 1000)
-        },
-        error: err => {
-          console.warn('Error: ', err)
-          this.toastr.error('Se ha producido un error! ', err)
-        }
-      })
-    } else if (arg == 3){
-      this.generalDataService.deleteExam(id).subscribe({
-        next: () => {
-          this.toastr.success('Se ha eliminado el examen.')
-          setTimeout(()=>{
-            this.router.navigate(['records']);
-          }, 1000)
-        },
-        error: err => {
-          console.warn('Error: ', err)
-          this.toastr.error('Se ha producido un error! ', err)
-        }
-      })
-    } else if (arg == 4){
-      this.generalDataService.deletePhysical(id).subscribe({
-        next: () => {
-          this.toastr.success('Se ha eliminado el examen físico.')
-          setTimeout(()=>{
-            this.router.navigate(['records']);
-          }, 1000)
-        },
-        error: err => {
-          console.warn('Error: ', err)
-          this.toastr.error('Se ha producido un error! ', err)
-        }
-      })
-    } else if (arg == 5){
-      this.generalDataService.deletePhysical(id).subscribe({
-        next: () => {
-          this.toastr.success('Se ha eliminado el medicamento o inyectable.')
-          setTimeout(()=>{
-            this.router.navigate(['records']);
-          }, 1000)
-        },
-        error: err => {
-          console.warn('Error: ', err)
-          this.toastr.error('Se ha producido un error! ', err)
-        }
-      })
+    switch(arg) {
+      case 1: {
+        this.generalDataService.deleteObservation(id).subscribe({
+          next: () => {
+            this.toastr.success('Se ha eliminado la observación.'),
+            this.generalDataService.getObservationByRecordId(this.petId).subscribe(data => this.generalData.observations = data)
+          },
+          error: err => { console.warn('Error: ', err) }
+        })
+        break;
+      }
+
+      case 2: {
+        this.generalDataService.deleteDeworming(id).subscribe({
+          next: () => {
+            this.toastr.success('Se ha eliminado la desparasitación.'),
+            this.generalDataService.getDewormingByRecordId(this.petId).subscribe(data => this.generalData.dewormings = data)
+          },
+          error: err => { console.warn('Error: ', err) }
+        })
+        break;
+      }
+
+      case 3: {
+        this.generalDataService.deleteExam(id).subscribe({
+          next: () => {
+            this.toastr.success('Se ha eliminado el examen.'),
+            this.generalDataService.getExamByRecordId(this.petId).subscribe(data => this.generalData.exams = data)
+          },
+          error: err => { console.warn('Error: ', err) }
+        })
+        break;
+      }
+
+      case 4: {
+        this.generalDataService.deletePhysical(id).subscribe({
+          next: () => {
+            this.toastr.success('Se ha eliminado el examen físico.'),
+            this.generalDataService.getPhysicalByRecordId(this.petId).subscribe(data => this.generalData.physicalExams = data)
+          },
+          error: err => { console.warn('Error: ', err) }
+        })
+        break;
+      }
+
+      case 5: {
+        this.generalDataService.deleteInjectableMed(id).subscribe({
+          next: () => {
+            this.toastr.success('Se ha eliminado el medicamento o inyectable.'),
+            this.generalDataService.getInjectableByRecordId(this.petId).subscribe(data => this.generalData.injectables = data)
+          },
+          error: err => { console.warn('Error: ', err) }
+        })
+        break;
+      }
+
     }
 
   }
@@ -173,33 +171,69 @@ export class AddInfoRecordComponent implements OnInit {
   add(arg:number){
     let component: any
     switch(arg) {
-      case 1 : {
-        component = OwnerSelectComponent
-        break;
-      }
-      case 2: {
-        component = OwnerSelectComponent
-        break;
-      }
-      case 3: {
-        component = OwnerSelectComponent
-        break;
-      }
-      case 4: {
-        component = OwnerSelectComponent
-        break;
-      }
-      case 5: {
-        component = OwnerSelectComponent
-        break;
-      }
-      case 6: {
-        component = AppointmentNewComponent
-        break;
-      }
+      case 1 : { component = ObservationComponent; break; }
+      case 2: { component = DewormingComponent; break; }
+      case 3: { component = ExamComponent; break; }
+      case 4: { component = ExamComponent; break; }
+      case 5: { component = InjectablesComponent; break;}
+      case 6: { component = AppointmentNewComponent; break; }
     }
 
     const modalRef = this.modalService.open(component)
+    modalRef.componentInstance.emitService.subscribe((emmitedValue:any) => {
+      console.log('data',emmitedValue)
+
+    if(arg == 1){
+      let observation:Observation = emmitedValue
+      observation.recordId = this.petId
+      this.generalDataService.addObservation(observation).subscribe({
+        next: () => {
+          this.toastr.success('Se ha registrado exitosamente la observación.')
+          this.generalDataService.getObservationByRecordId(this.petId).subscribe(data => this.generalData.observations = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+    
+    if(arg == 2){
+      let deworming:Deworming = emmitedValue
+      deworming.recordId = this.petId
+      this.generalDataService.addDeworming(deworming).subscribe({
+        next: () => {
+          this.toastr.success('Se ha registrado exitosamente la desparasitación.')
+          this.generalDataService.getDewormingByRecordId(this.petId).subscribe(data => this.generalData.dewormings = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+      
+    if(arg == 3){
+      let exam:Exam = emmitedValue
+      exam.recordId = this.petId
+      this.generalDataService.addExam(exam).subscribe({
+        next: () => {
+          this.toastr.success('Se ha registrado exitosamente el examen.')
+          this.generalDataService.getExamByRecordId(this.petId).subscribe(data => this.generalData.exams = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else 
+
+    if(arg == 5){
+      let injectable:InjectableMed = emmitedValue
+      injectable.recordId = this.petId
+      this.generalDataService.addInjectableMed(injectable).subscribe({
+        next: () => {
+          this.toastr.success('Se ha registrado exitosamente el medicamento/inyectable.')
+          this.generalDataService.getInjectableByRecordId(this.petId).subscribe(data => this.generalData.injectables = data)
+        },
+        error: err => console.warn(err)
+      })
+    }
+
+
+
+    });
   }
 
 }

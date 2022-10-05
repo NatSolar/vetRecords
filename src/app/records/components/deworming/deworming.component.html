@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Nueva desparasitación</h4>
+</div>
+<form #dewormingForm="ngForm">
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="anthelmintic" class="form-label">Antihelmíntico</label>
+            <input type="text" class="form-control" id="anthelmintic" name="anthelmintic" [(ngModel)]="deworming.anthelmintic" required>
+        </div>
+        <div class="mb-3">
+            <label for="regDt">Fecha de aplicación</label>
+            <div class="input-group">
+                <input id="regDt" class="form-control" type="date" name="regDt" [(ngModel)]="deworming.regDt" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="nextDate">Fecha de próxima</label>
+            <div class="input-group">
+                <input id="nextDate" class="form-control" type="date" name="nextDate" [(ngModel)]="deworming.nextDate" required>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-outline-dark" (click)="addDeworming(dewormingForm)">Agregar</a>
+    </div>
+</form>

@@ -8,3 +8,15 @@ th, td {
     text-align: center;
     vertical-align: middle;
   }
+
+  .custom-input {
+    width: 58px;
+  }
+
+  .td-custom {
+    width: 175px;
+  }
+
+  .select-custom {
+    width: 95px;
+  }

@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Nueva observación</h4>
+</div>
+<div class="modal-body">
+    <form #observationForm="ngForm">
+        <div class="mb-3">
+            <label for="observation" class="form-label">Observación</label>
+            <input type="text" class="form-control" id="observation" name="observation" [(ngModel)]="observation.observation" required>
+        </div>
+        <div class="mb-3">
+            <label for="regDt">Fecha de aplicación</label>
+            <div class="input-group">
+                <input id="regDt" class="form-control" type="date" name="regDt" [(ngModel)]="observation.regDt" required>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="addObservation(observationForm)">Agregar</button>
+</div>

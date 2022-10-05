@@ -59,12 +59,14 @@
                         </td>
                     </tr>
                     <tr *ngIf="readOnly!=true">
-                        <td>
-                            <input type="number" class="form-control" id="yearsOld" name="yearsOld" [(ngModel)]="lineVaccine.yearsOld">
-                            <select class="form-select" [(ngModel)]="lineVaccine.unit" name="unit" id="unit">
-                                <option selected value="meses">meses</option>
-                                <option value="annos">años</option>
-                              </select>
+                        <td class="td-custom">
+                            <div class="row mx-auto">
+                                <input type="number" class="form-control custom-input" id="yearsOld" name="yearsOld" [(ngModel)]="lineVaccine.yearsOld">
+                                <select class="form-select select-custom" [(ngModel)]="lineVaccine.unit" name="unit" id="unit">
+                                    <option selected value="meses">meses</option>
+                                    <option value="annos">años</option>
+                                  </select>
+                            </div>
                         <td>
                             <input id="date" name="date" class="form-control" type="date" [(ngModel)]="lineVaccine.date">
                         </td>
@@ -93,7 +95,7 @@
                             <input class="form-check-input" type="checkbox" id="vac8" name="vac8" [(ngModel)]="lineVaccine.vac8">
                         </td>
                         <td>
-                            <button class="btn btn-primary" type="button" type="submit">Agregar</button>
+                            <button class="btn btn-primary btn-sm" type="button" type="submit">Agregar</button>
                         </td>
                     </tr>
                 </tbody>

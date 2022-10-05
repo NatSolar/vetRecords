@@ -232,14 +232,16 @@
           </div>
         </div>
       </div>
+      <br>
+      <p class="mb-2"><span class="text-primary font-italic me-1">Vacunas</span></p>
+      <app-vaccines></app-vaccines>
+      <br>
+      <div class="d-flex justify-content-end">
+        <a class="btn btn-secondary me-1" (click)="goBack()">Regresar</a>
+      </div>
     </div>
   </section>
-  <h6>Vacunas</h6>
-    <app-vaccines></app-vaccines>
-  <br>
-  <div class="d-flex justify-content-end">
-    <a class="btn btn-secondary me-1" (click)="goBack()">Regresar</a>
-  </div>
+  
 
   <ng-template #noDataAppointment>
     <p>No tiene citas registradas.</p>
