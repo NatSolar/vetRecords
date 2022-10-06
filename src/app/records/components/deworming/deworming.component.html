@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nueva desparasitación</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{action}} desparasitación</h4>
 </div>
 <form #dewormingForm="ngForm">
     <div class="modal-body">
@@ -21,6 +21,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="btn btn-outline-dark" (click)="addDeworming(dewormingForm)">Agregar</a>
+        <button class="btn btn-outline-dark" (click)="actionDeworming(dewormingForm)" [disabled]="dewormingForm.invalid">{{btn}}</button>
     </div>
 </form>

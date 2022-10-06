@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Vaccines } from 'src/app/interfaces/vaccines';
+
 import { GeneralDataService } from '../../../services/generalData.service';
+import { Vaccines } from 'src/app/interfaces/vaccines';
 
 @Component({
   selector: 'app-vaccines',
@@ -16,21 +17,7 @@ export class VaccinesComponent implements OnInit  {
   
   @Input('readOnly') readOnly: any
 
-  lineVaccine : Vaccines = {
-    petId: 0,
-    yearsOld: 0,
-    date: '',
-    vac1: false,
-    vac2: false,
-    vac3: false,
-    vac4: false,
-    vac5: false,
-    vac6: false,
-    vac7: false,
-    vac8: false,
-    unit: ''
-  }
-
+  lineVaccine : Vaccines = { petId: 0, yearsOld: 0, date: '', vac1: false, vac2: false, vac3: false, vac4: false, vac5: false, vac6: false, vac7: false, vac8: false, unit: '' }
   count: number = 0
   generalVaccines: Vaccines[] =[]
 
@@ -48,10 +35,7 @@ export class VaccinesComponent implements OnInit  {
         },
         error: err => console.warn(err)
       })
-    })
-
-    
-    
+    }) 
   }
 
   onSubmit(){
@@ -61,20 +45,23 @@ export class VaccinesComponent implements OnInit  {
 
     this.vaccinesService.addVaccine(this.lineVaccine).subscribe({
       next: () => {
+        this.vaccinesService.getVaccinesByRecordId(this.petId).subscribe(data => {
+          this.generalVaccines = data.sort((a, b) => a.date.localeCompare(b.date)) 
+        })
         this.toastr.success('Se ha registrado exitosamente las vacunas.')
-        this.generalVaccines.push(this.lineVaccine)
         this.lineVaccine = { petId: 0, yearsOld: 0, date: '', vac1: false, vac2: false, vac3: false, vac4: false, vac5: false, vac6: false, vac7: false, vac8: false, unit: '' }
       },
       error: err => console.warn(err)
     })
-    
   }
 
   deleteVaccine(id: number){
     this.vaccinesService.deleteVaccine(id).subscribe({
       next: () => {
         this.toastr.success('Se ha eliminado la vacuna seleccionada.')
-        this.generalVaccines.pop()
+        this.vaccinesService.getVaccinesByRecordId(this.petId).subscribe(data => {
+          this.generalVaccines = data.sort((a, b) => a.date.localeCompare(b.date)) 
+        })
       },
       error: err => console.warn(err)
     })

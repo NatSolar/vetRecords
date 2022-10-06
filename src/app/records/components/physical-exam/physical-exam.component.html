@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{action}} examen físico</h4>
+</div>
+<div class="modal-body">
+    <form #physicalForm="ngForm">
+        <div class="mb-3">
+            <label for="weight" class="form-label">Peso</label>
+            <input type="number" class="form-control" id="weight" name="weight" [(ngModel)]="physicalExam.weight" required>
+        </div>
+        <div class="mb-3">
+            <label for="regDt">Fecha de aplicación</label>
+            <div class="input-group">
+                <input id="regDt" class="form-control" type="date" name="regDt" [(ngModel)]="physicalExam.regDt" required>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="actionPhysicalExam(physicalForm)">{{btn}}</button>
+</div>

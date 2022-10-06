@@ -1,5 +1,5 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { startOfDay, endOfDay, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { startOfDay, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
@@ -100,25 +100,6 @@ export class CalendarComponent {
       return iEvent;
     });
     this.handleEvent('Dropped or resized', event);
-  }
-
-  
-
-  addEvent(): void {
-    this.modal.open(AppointmentNewComponent, { size: 'lg' });
-    /*this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];*/
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

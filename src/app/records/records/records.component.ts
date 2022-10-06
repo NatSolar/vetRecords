@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+
 import { Record } from 'src/app/interfaces/record';
 import { RecordsService } from 'src/app/services/records.service';
 
 @Component({
   selector: 'app-records',
-  templateUrl: './records.component.html',
-  styleUrls: ['./records.component.css']
+  templateUrl: './records.component.html'
 })
 export class RecordsComponent implements OnInit {
 
@@ -19,13 +19,13 @@ export class RecordsComponent implements OnInit {
     this.recordsService.getAll().subscribe({
       next: data => this.records = data,
       error: err => console.warn(err)
-      })
+    })
   }
 
   deleteRecord(id: number){
     this.recordsService.deleteRecord(id).subscribe({
       next: () => {
-        this.toastr.success('Se ha eliminado exitosamente el paciente.')
+        this.toastr.success('Se ha eliminado el paciente.')
         setTimeout(()=>{
           location.reload();
         }, 1000)

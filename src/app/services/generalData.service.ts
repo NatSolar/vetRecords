@@ -1,12 +1,13 @@
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+
 import { Deworming } from '../interfaces/deworning';
+import { Exam } from '../interfaces/exam';
 import { InjectableMed } from '../interfaces/injectable';
 import { Observation } from '../interfaces/observations';
 import { PhysicalExam } from '../interfaces/physicalExam';
-import { Exam } from '../interfaces/exam';
 import { Vaccines } from '../interfaces/vaccines';
 
 @Injectable({
@@ -20,14 +21,6 @@ export class GeneralDataService {
   constructor(private http: HttpClient) { }
 
   /* Injectables */
-
-  getInjectableById(id: number) : Observable<InjectableMed[]> {
-    return this.http.get<InjectableMed[]>(`${this.API_URL}/injectables?id=eq.${id}`, {
-      headers: {
-        'apiKey': this.API_KEY
-      }
-    })
-  }
 
   getInjectableByRecordId(id: number) : Observable<InjectableMed[]> {
     return this.http.get<InjectableMed[]>(`${this.API_URL}/injectables?recordId=eq.${id}`, {
@@ -59,14 +52,6 @@ export class GeneralDataService {
 
   /* Dewormings */
 
-  getDewormingById(id: number) : Observable<Deworming[]> {
-    return this.http.get<Deworming[]>(`${this.API_URL}/dewormings?id=eq.${id}`, {
-      headers: {
-        'apiKey': this.API_KEY
-      }
-    })
-  }
-
   getDewormingByRecordId(id: number) : Observable<Deworming[]> {
     return this.http.get<Deworming[]>(`${this.API_URL}/dewormings?recordId=eq.${id}`, {
       headers: {
@@ -96,14 +81,6 @@ export class GeneralDataService {
   }
 
   /* Observations */
-
-  getObservationById(id: number) : Observable<Observation[]> {
-    return this.http.get<Observation[]>(`${this.API_URL}/observations?id=eq.${id}`, {
-      headers: {
-        'apiKey': this.API_KEY
-      }
-    })
-  }
 
   getObservationByRecordId(id: number) : Observable<Observation[]> {
     return this.http.get<Observation[]>(`${this.API_URL}/observations?recordId=eq.${id}`, {
@@ -135,14 +112,6 @@ export class GeneralDataService {
 
   /* PhysicalExams */
 
-  getPhysicalById(id: number) : Observable<PhysicalExam[]> {
-    return this.http.get<PhysicalExam[]>(`${this.API_URL}/physicalExams?id=eq.${id}`, {
-      headers: {
-        'apiKey': this.API_KEY
-      }
-    })
-  }
-
   getPhysicalByRecordId(id: number) : Observable<PhysicalExam[]> {
     return this.http.get<PhysicalExam[]>(`${this.API_URL}/physicalExams?recordId=eq.${id}`, {
       headers: {
@@ -172,14 +141,6 @@ export class GeneralDataService {
   }
 
   /* Specific Exams */
-
-  getExamById(id: number) : Observable<Exam[]> {
-    return this.http.get<Exam[]>(`${this.API_URL}/exams?id=eq.${id}`, {
-      headers: {
-        'apiKey': this.API_KEY
-      }
-    })
-  }
 
   getExamByRecordId(id: number) : Observable<Exam[]> {
     return this.http.get<Exam[]>(`${this.API_URL}/exams?recordId=eq.${id}`, {

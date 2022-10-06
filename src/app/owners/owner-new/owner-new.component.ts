@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { OwnerService } from 'src/app/services/owners.service'; 
-import { Location } from '@angular/common'; 
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Owner } from 'src/app/interfaces/owner';
+import { Location } from '@angular/common'; 
 import { ToastrService } from 'ngx-toastr';
+
+import { Owner } from 'src/app/interfaces/owner';
+import { OwnerService } from 'src/app/services/owners.service'; 
 
 @Component({
   selector: 'app-owner-new',
-  templateUrl: './owner-new.component.html',
-  styleUrls: ['./owner-new.component.css']
+  templateUrl: './owner-new.component.html'
 })
 export class OwnerNewComponent implements OnInit {
 

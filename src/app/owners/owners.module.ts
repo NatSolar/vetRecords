@@ -1,29 +1,29 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
 
-import { OwnersRoutingModule } from './owners-routing.module';
-import { OwnersComponent } from './owners/owners.component';
 import { OwnerComponent } from './owner/owner.component';
 import { OwnerEditComponent } from './owner-edit/owner-edit.component';
 import { OwnerNewComponent } from './owner-new/owner-new.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwnerSelectComponent } from './owner-select/owner-select.component';
-
+import { OwnersRoutingModule } from './owners-routing.module';
+import { OwnersComponent } from './owners/owners.component';
 
 @NgModule({
   declarations: [
-    OwnersComponent,
     OwnerComponent,
     OwnerEditComponent,
     OwnerNewComponent,
-    OwnerSelectComponent
+    OwnerSelectComponent,
+    OwnersComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     NgbModule,
+    ReactiveFormsModule,
+    
     OwnersRoutingModule
   ]
 })

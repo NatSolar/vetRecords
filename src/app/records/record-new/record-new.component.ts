@@ -1,30 +1,20 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common'; 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+
 import { Record } from 'src/app/interfaces/record';
 import { RecordsService } from 'src/app/services/records.service';
-import { Location } from '@angular/common'; 
 import { OwnerSelectComponent } from '../../owners/owner-select/owner-select.component';
 import { Owner } from 'src/app/interfaces/owner';
 
 @Component({
   selector: 'app-record-new',
-  templateUrl: './record-new.component.html',
-  styleUrls: ['./record-new.component.css']
+  templateUrl: './record-new.component.html'
 })
 export class RecordNewComponent {
 
-  record : Record = {
-    name: '',
-    birthday: '',
-    yearsOld: 0,
-    breed: '',
-    genre: '',
-    specie: '',
-    color: '',
-    ownerId: 0
-  }
-
+  record : Record = { name: '', birthday: '', yearsOld: 0, breed: '', genre: '', specie: '', color: '', ownerId: 0 }
   ownerId: number = 0;
   ownerNm: string = "";
 

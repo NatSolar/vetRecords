@@ -1,9 +1,10 @@
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, mergeMap, of, zip, tap, from, map, toArray, forkJoin } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Record } from '../interfaces/record';
+import { forkJoin, mergeMap, map, Observable } from 'rxjs';
+
 import { OwnerService } from './owners.service';
+import { Record } from '../interfaces/record';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,7 @@ export class RecordsService {
             return o;
           })
         ))
-      )),
-      //tap(console.log)
+      ))
     )
   }
   

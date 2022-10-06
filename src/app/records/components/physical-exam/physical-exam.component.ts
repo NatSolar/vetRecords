@@ -1,23 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Deworming } from 'src/app/interfaces/deworning';
+import { PhysicalExam } from '../../../interfaces/physicalExam';
 
 @Component({
-  selector: 'app-deworming',
-  templateUrl: './deworming.component.html'
+  selector: 'app-physical-exam',
+  templateUrl: './physical-exam.component.html',
+  styles: [
+  ]
 })
-export class DewormingComponent implements OnInit {
+export class PhysicalExamComponent implements OnInit {
 
-  deworming: Deworming = { recordId: 0, regDt: new Date(), anthelmintic: '', nextDate: new Date() }
+  physicalExam: PhysicalExam = { recordId: 0, weight: '', regDt: new Date() }
 
   @Input() public data: any;
   @Output() emitService = new EventEmitter();
 
   isEdit: boolean = false
-  action: string = 'Nueva'
+  action: string = 'Nuevo'
   btn: string = 'Agregar'
-
+  
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -25,12 +27,12 @@ export class DewormingComponent implements OnInit {
       this.isEdit = true
       this.action = 'Modificar'
       this.btn = 'Modificar'
-      this.deworming = this.data
+      this.physicalExam = this.data
     }
   }
 
-  actionDeworming(dewormingForm: any){
-    this.emitService.next(dewormingForm.value)
+  actionPhysicalExam(observationForm: any){
+    this.emitService.next(observationForm.value)
     this.modalService.dismissAll()
   }
 

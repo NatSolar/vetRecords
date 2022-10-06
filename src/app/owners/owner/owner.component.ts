@@ -1,35 +1,25 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Owner } from 'src/app/interfaces/owner'; 
-import { OwnerService } from 'src/app/services/owners.service'; 
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Record } from '../../interfaces/record';
-import { RecordsService } from '../../services/records.service';
+
 import { Appointment } from '../../interfaces/appointment';
 import { AppointmentsService } from '../../services/appointments.service';
+import { Owner } from 'src/app/interfaces/owner'; 
+import { OwnerService } from 'src/app/services/owners.service'; 
+import { Record } from '../../interfaces/record';
+import { RecordsService } from '../../services/records.service';
 
 @Component({
   selector: 'app-owner',
-  templateUrl: './owner.component.html',
-  styleUrls: ['./owner.component.css']
+  templateUrl: './owner.component.html'
 })
 export class OwnerComponent implements OnInit {
 
-  owner: Owner = {
-    firstname: '',
-    lastnameF: '',
-    lastnameM: '',
-    address: '',
-    email: '',
-    telephone: '',
-    cedula: 0
-  }
-
+  owner: Owner = { firstname: '', lastnameF: '', lastnameM: '', address: '', email: '', telephone: '', cedula: 0 }
   pets: Record[] = []
   appointments: Appointment[] = []
   appointment!: Appointment
   petsName: string[] = []
-  
   urlAvatar!: string
 
   constructor(
@@ -37,8 +27,7 @@ export class OwnerComponent implements OnInit {
     private ownersService: OwnerService, 
     private location: Location,
     private readonly recordsService: RecordsService,
-    private readonly appointmentsService: AppointmentsService
-    ) { }
+    private readonly appointmentsService: AppointmentsService) { }
 
   ngOnInit(): void {
     this.activatedRouter.params.subscribe(({id}) => {
@@ -85,6 +74,6 @@ export class OwnerComponent implements OnInit {
     } else {
       return '';
     }
-}
+  }
 
 }

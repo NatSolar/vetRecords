@@ -44,7 +44,7 @@
                     <li *ngFor="let observation of generalData.observations">
                       {{observation.regDt | date}} : {{observation.observation}}
                       <span class="cal-event-actions ng-star-inserted">
-                        <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                        <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="edit(observation, 1)"><i class="bi bi-pencil"></i></a>
                       </span>
                       <span class="cal-event-actions ng-star-inserted">
                         <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(observation.id!, 1)"><i class="bi bi-trash"></i></a>
@@ -133,7 +133,7 @@
                             <span class="text-primary font-italic me-1">, antihelmíntico: </span> {{deworming.anthelmintic}}
                             <span class="text-primary font-italic me-1">, próxima: </span> {{deworming.nextDate}}
                             <span class="cal-event-actions ng-star-inserted">
-                              <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                              <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="edit(deworming, 2)"><i class="bi bi-pencil"></i></a>
                             </span>
                             <span class="cal-event-actions ng-star-inserted">
                               <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(deworming.id!, 2)"><i class="bi bi-trash"></i></a>
@@ -161,7 +161,7 @@
                         <li *ngFor="let exams of generalData.exams">
                           {{exams.regDt | date}} : {{exams.name}}
                           <span class="cal-event-actions ng-star-inserted">
-                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="edit(exams, 3)"><i class="bi bi-pencil"></i></a>
                           </span>
                           <span class="cal-event-actions ng-star-inserted">
                             <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(exams.id!, 3)"><i class="bi bi-trash"></i></a>
@@ -191,7 +191,7 @@
                         <li *ngFor="let physicalExam of generalData.physicalExams">
                           {{physicalExam.regDt | date}} : {{physicalExam.weight}} kg
                           <span class="cal-event-actions ng-star-inserted">
-                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="edit(physicalExam, 4)"><i class="bi bi-pencil"></i></a>
                           </span>
                           <span class="cal-event-actions ng-star-inserted">
                             <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(physicalExam.id!, 4)"><i class="bi bi-trash"></i></a>
@@ -218,7 +218,7 @@
                         <li *ngFor="let injectable of generalData.injectables">
                           {{injectable.regDt | date}} - {{injectable.name}}
                           <span class="cal-event-actions ng-star-inserted">
-                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted"><i class="bi bi-pencil"></i></a>
+                            <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="edit(injectable, 5)"><i class="bi bi-pencil"></i></a>
                           </span>
                           <span class="cal-event-actions ng-star-inserted">
                             <a tabindex="0" role="button" class="cal-event-action ng-star-inserted" (click)="delete(injectable.id!, 5)"><i class="bi bi-trash"></i></a>

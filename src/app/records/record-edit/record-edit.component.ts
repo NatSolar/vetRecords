@@ -1,32 +1,22 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Record } from 'src/app/interfaces/record';
-import { RecordsService } from '../../services/records.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OwnerSelectComponent } from 'src/app/owners/owner-select/owner-select.component';
+import { ToastrService } from 'ngx-toastr';
+
+import { Record } from 'src/app/interfaces/record';
+import { RecordsService } from '../../services/records.service';
 import { Owner } from 'src/app/interfaces/owner';
+import { OwnerSelectComponent } from 'src/app/owners/owner-select/owner-select.component';
 
 @Component({
   selector: 'app-record-edit',
-  templateUrl: './record-edit.component.html',
-  styleUrls: ['./record-edit.component.css']
+  templateUrl: './record-edit.component.html'
 })
 export class RecordEditComponent implements OnInit {
 
-  record: Record = {
-    name: '',
-    birthday: '',
-    yearsOld: 0,
-    breed: '',
-    genre: '',
-    specie: '',
-    color: '',
-    ownerId: 0
-  }
-
+  record: Record = { name: '', birthday: '', yearsOld: 0, breed: '', genre: '', specie: '', color: '', ownerId: 0 }
   recordForm! : FormGroup
 
   constructor(

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nuevo examen</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{action}} examen</h4>
 </div>
 <div class="modal-body">
     <form #examForm="ngForm">
@@ -16,5 +16,5 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="addExam(examForm)">Agregar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="actionExam(examForm)">{{btn}}</button>
 </div>

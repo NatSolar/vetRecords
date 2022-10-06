@@ -1,22 +1,22 @@
-  import { Component, Input, OnInit } from '@angular/core';
   import { ActivatedRoute, Router } from '@angular/router';
+  import { Component, Input, OnInit } from '@angular/core';
+  import { Location } from '@angular/common';
   import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   import { ToastrService } from 'ngx-toastr';
-  import { Owner } from 'src/app/interfaces/owner';
-  import { Record } from 'src/app/interfaces/record';
-  import { RecordsService } from 'src/app/services/records.service';
-  import { Location } from '@angular/common';
-  import { OwnerService } from '../../services/owners.service';
+  import { zip } from 'rxjs';
+
+  import { AdditionalRecord } from 'src/app/interfaces/additionalRecord';
   import { Appointment } from '../../interfaces/appointment';
   import { AppointmentsService } from '../../services/appointments.service';
-  import { zip } from 'rxjs';
   import { GeneralDataService } from '../../services/generalData.service';
-  import { AdditionalRecord } from 'src/app/interfaces/additionalRecord';
+  import { Owner } from 'src/app/interfaces/owner';
+  import { OwnerService } from '../../services/owners.service';
+  import { Record } from 'src/app/interfaces/record';
+  import { RecordsService } from 'src/app/services/records.service';
 
   @Component({
     selector: 'app-record',
-    templateUrl: './record.component.html',
-    styleUrls: ['./record.component.css']
+    templateUrl: './record.component.html'
   })
   export class RecordComponent implements OnInit {
 
@@ -25,14 +25,7 @@
     record: Record = { name: '', birthday: '', yearsOld: 0, breed: '', genre: '', specie: '', color: '', ownerId: 0 }
     owner: Owner = { firstname: '', lastnameF: '', lastnameM: '', address: '', email: '', telephone: '', cedula: 0 }
     appointments:Appointment[] = []
-    generalData: AdditionalRecord = {
-      observations: [],
-      dewormings: [],
-      injectables: [],
-      physicalExams: [],
-      exams: []
-    }
-  
+    generalData: AdditionalRecord = { observations: [], dewormings: [], injectables: [], physicalExams: [], exams: [] }
     urlAvatar!:string
   
     constructor(

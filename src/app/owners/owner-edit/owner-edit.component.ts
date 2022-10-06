@@ -1,27 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Owner } from 'src/app/interfaces/owner'; 
-import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { OwnerService } from 'src/app/services/owners.service'; 
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+
+import { Owner } from 'src/app/interfaces/owner'; 
+import { OwnerService } from 'src/app/services/owners.service'; 
 
 @Component({
   selector: 'app-owner-edit',
-  templateUrl: './owner-edit.component.html',
-  styleUrls: ['./owner-edit.component.css']
+  templateUrl: './owner-edit.component.html'
 })
 export class OwnerEditComponent implements OnInit {
 
-  owner: Owner = {
-    firstname: '',
-    lastnameF: '',
-    lastnameM: '',
-    address: '',
-    email: '',
-    telephone: '',
-    cedula: 0
-  }
+  owner: Owner = { firstname: '', lastnameF: '', lastnameM: '', address: '', email: '', telephone: '', cedula: 0 }
   ownerForm! : FormGroup
 
   constructor(private location: Location, 

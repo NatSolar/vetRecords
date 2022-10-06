@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OwnersComponent } from './owners/owners.component';
+
 import { OwnerComponent } from './owner/owner.component';
 import { OwnerEditComponent } from './owner-edit/owner-edit.component';
 import { OwnerNewComponent } from './owner-new/owner-new.component';
+import { OwnersComponent } from './owners/owners.component';
 
 const routes: Routes = [
   { path: '', component: OwnersComponent},

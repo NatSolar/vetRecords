@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+
 import { Owner } from 'src/app/interfaces/owner';
 import { OwnerService } from 'src/app/services/owners.service';
 
 @Component({
   selector: 'app-owners',
-  templateUrl: './owners.component.html',
-  styleUrls: ['./owners.component.css']
+  templateUrl: './owners.component.html'
 })
 export class OwnersComponent implements OnInit {
 

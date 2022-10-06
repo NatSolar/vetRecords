@@ -1,28 +1,30 @@
-import { Component, Input, OnInit, Output, Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Owner } from 'src/app/interfaces/owner';
-import { Record } from 'src/app/interfaces/record';
-import { OwnerSelectComponent } from 'src/app/owners/owner-select/owner-select.component';
-import { RecordsService } from 'src/app/services/records.service';
-import { Location } from '@angular/common';
-import { OwnerService } from '../../services/owners.service';
+import { zip } from 'rxjs';
+
+import { AdditionalRecord } from 'src/app/interfaces/additionalRecord';
 import { Appointment } from '../../interfaces/appointment';
+import { AppointmentNewComponent } from 'src/app/appointments/components/appointment-new/appointment-new.component';
 import { AppointmentsService } from '../../services/appointments.service';
 import { Deworming } from '../../interfaces/deworning';
-import { zip } from 'rxjs';
-import { InjectableMed } from '../../interfaces/injectable';
-import { Observation } from '../../interfaces/observations';
-import { GeneralDataService } from '../../services/generalData.service';
-import { AdditionalRecord } from 'src/app/interfaces/additionalRecord';
-import { AppointmentNewComponent } from 'src/app/appointments/components/appointment-new/appointment-new.component';
 import { DewormingComponent } from '../components/deworming/deworming.component';
-import { ExamComponent } from '../components/exam/exam.component';
-import { InjectablesComponent } from '../components/injectables/injectables.component';
-import { ObservationComponent } from '../components/observation/observation.component';
 import { Exam } from '../../interfaces/exam';
+import { ExamComponent } from '../components/exam/exam.component';
+import { GeneralDataService } from '../../services/generalData.service';
+import { InjectableMed } from '../../interfaces/injectable';
+import { InjectablesComponent } from '../components/injectables/injectables.component';
+import { Record } from 'src/app/interfaces/record';
+import { RecordsService } from 'src/app/services/records.service';
+import { Observation } from '../../interfaces/observations';
+import { ObservationComponent } from '../components/observation/observation.component';
+import { Owner } from 'src/app/interfaces/owner';
+import { OwnerService } from '../../services/owners.service';
+import { PhysicalExamComponent } from '../components/physical-exam/physical-exam.component';
+import { PhysicalExam } from '../../interfaces/physicalExam';
 
 @Component({
   selector: 'app-add-info-record',
@@ -34,14 +36,7 @@ export class AddInfoRecordComponent implements OnInit {
   record: Record = { name: '', birthday: '', yearsOld: 0, breed: '', genre: '', specie: '', color: '', ownerId: 0 }
   owner: Owner = { firstname: '', lastnameF: '', lastnameM: '', address: '', email: '', telephone: '', cedula: 0 }
   appointments:Appointment[] = []
-  generalData: AdditionalRecord = {
-    observations: [],
-    dewormings: [],
-    injectables: [],
-    physicalExams: [],
-    exams: []
-  }
-
+  generalData: AdditionalRecord = { observations: [], dewormings: [], injectables: [], physicalExams: [], exams: [] }
   urlAvatar!:string
   recordForm! : FormGroup
   petId!: number
@@ -170,25 +165,26 @@ export class AddInfoRecordComponent implements OnInit {
 
   add(arg:number){
     let component: any
+
     switch(arg) {
       case 1 : { component = ObservationComponent; break; }
       case 2: { component = DewormingComponent; break; }
       case 3: { component = ExamComponent; break; }
-      case 4: { component = ExamComponent; break; }
+      case 4: { component = PhysicalExamComponent; break; }
       case 5: { component = InjectablesComponent; break;}
       case 6: { component = AppointmentNewComponent; break; }
     }
 
     const modalRef = this.modalService.open(component)
+    modalRef.componentInstance.needRecordId = false
     modalRef.componentInstance.emitService.subscribe((emmitedValue:any) => {
-      console.log('data',emmitedValue)
 
     if(arg == 1){
       let observation:Observation = emmitedValue
       observation.recordId = this.petId
       this.generalDataService.addObservation(observation).subscribe({
         next: () => {
-          this.toastr.success('Se ha registrado exitosamente la observación.')
+          this.toastr.success('Se ha registrado la observación.')
           this.generalDataService.getObservationByRecordId(this.petId).subscribe(data => this.generalData.observations = data)
         },
         error: err => console.warn(err)
@@ -200,7 +196,7 @@ export class AddInfoRecordComponent implements OnInit {
       deworming.recordId = this.petId
       this.generalDataService.addDeworming(deworming).subscribe({
         next: () => {
-          this.toastr.success('Se ha registrado exitosamente la desparasitación.')
+          this.toastr.success('Se ha registrado la desparasitación.')
           this.generalDataService.getDewormingByRecordId(this.petId).subscribe(data => this.generalData.dewormings = data)
         },
         error: err => console.warn(err)
@@ -212,28 +208,134 @@ export class AddInfoRecordComponent implements OnInit {
       exam.recordId = this.petId
       this.generalDataService.addExam(exam).subscribe({
         next: () => {
-          this.toastr.success('Se ha registrado exitosamente el examen.')
+          this.toastr.success('Se ha registrado el examen.')
           this.generalDataService.getExamByRecordId(this.petId).subscribe(data => this.generalData.exams = data)
         },
         error: err => console.warn(err)
       })
     } else 
 
+    if(arg == 4){
+      let physicalExam:PhysicalExam = emmitedValue
+      physicalExam.recordId = this.petId
+      this.generalDataService.addPhysical(physicalExam).subscribe({
+        next: () => {
+          this.toastr.success('Se ha registrado el examen físico.')
+          this.generalDataService.getPhysicalByRecordId(this.petId).subscribe(data => this.generalData.physicalExams = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+
     if(arg == 5){
       let injectable:InjectableMed = emmitedValue
       injectable.recordId = this.petId
       this.generalDataService.addInjectableMed(injectable).subscribe({
         next: () => {
-          this.toastr.success('Se ha registrado exitosamente el medicamento/inyectable.')
+          this.toastr.success('Se ha registrado el medicamento/inyectable.')
+          this.generalDataService.getInjectableByRecordId(this.petId).subscribe(data => this.generalData.injectables = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+
+    if(arg == 6){
+      let appointment:Appointment = emmitedValue
+      appointment.recordId = this.petId
+      console.log(appointment)
+      this.appointmentsService.addAppointment(appointment).subscribe({
+        next: () => {
+          this.toastr.success('Se ha registrado la nueva cita.')
+          this.appointmentsService.getByRecordId(this.petId).subscribe(data => this.appointments = data)
+        },
+        error: err => console.warn(err)
+      })
+    }
+    });
+  }
+
+  edit(object:any, arg:number){
+    let component: any
+
+    switch(arg) {
+      case 1 : { component = ObservationComponent; break; }
+      case 2: { component = DewormingComponent; break; }
+      case 3: { component = ExamComponent; break; }
+      case 4: { component = PhysicalExamComponent; break; }
+      case 5: { component = InjectablesComponent; break;}
+      case 6: { component = AppointmentNewComponent; break; }
+    }
+
+    const modalRef = this.modalService.open(component)
+    modalRef.componentInstance.data = object
+
+    modalRef.componentInstance.emitService.subscribe((emmitedValue:any) => {
+
+    if(arg == 1){
+      let observation:Observation = object
+      observation.observation = emmitedValue.observation
+      observation.regDt = emmitedValue.regDt
+      this.generalDataService.updateObservation(observation, observation.id!).subscribe({
+        next: () => {
+          this.toastr.success('Se ha modificado la observación.')
+          this.generalDataService.getObservationByRecordId(this.petId).subscribe(data => this.generalData.observations = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else 
+
+    if(arg == 2){
+      let deworming:Deworming = object
+      deworming.anthelmintic = emmitedValue.anthelmintic
+      deworming.regDt = emmitedValue.regDt
+      deworming.nextDate = emmitedValue.nextDate
+      this.generalDataService.updateDeworming(deworming, deworming.id!).subscribe({
+        next: () => {
+          this.toastr.success('Se ha modificado la desparasitación.')
+          this.generalDataService.getDewormingByRecordId(this.petId).subscribe(data => this.generalData.dewormings = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else 
+
+    if(arg == 3){
+      let exam:Exam = object
+      exam.name = emmitedValue.name
+      exam.regDt = emmitedValue.regDt
+      this.generalDataService.updateExam(exam, exam.id!).subscribe({
+        next: () => {
+          this.toastr.success('Se ha modificado el examen.')
+          this.generalDataService.getExamByRecordId(this.petId).subscribe(data => this.generalData.exams = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+
+    if(arg == 4){
+      let physicalExam:PhysicalExam = object
+      physicalExam.weight = emmitedValue.weight
+      physicalExam.regDt = emmitedValue.regDt
+      this.generalDataService.updatePhysical(physicalExam, physicalExam.id!).subscribe({
+        next: () => {
+          this.toastr.success('Se ha modificado el examen físico.')
+          this.generalDataService.getPhysicalByRecordId(this.petId).subscribe(data => this.generalData.physicalExams = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+
+    if(arg == 5){
+      let injectable:InjectableMed = object
+      injectable.recordId = this.petId
+      this.generalDataService.updateInjectableMed(injectable, injectable.id!).subscribe({
+        next: () => {
+          this.toastr.success('Se ha modificado el medicamento/inyectable.')
           this.generalDataService.getInjectableByRecordId(this.petId).subscribe(data => this.generalData.injectables = data)
         },
         error: err => console.warn(err)
       })
     }
-
-
-
-    });
+    })
   }
 
 }

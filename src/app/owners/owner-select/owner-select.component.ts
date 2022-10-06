@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Owner } from 'src/app/interfaces/owner';
 import { OwnerService } from 'src/app/services/owners.service';
 
 @Component({
   selector: 'app-owner-select',
-  templateUrl: './owner-select.component.html',
-  styleUrls: ['./owner-select.component.css']
+  templateUrl: './owner-select.component.html'
 })
 export class OwnerSelectComponent implements OnInit {
   

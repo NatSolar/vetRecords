@@ -1,30 +1,39 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nueva cita</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{action}} cita</h4>
 </div>
 <div class="modal-body">
-    <form>
+    <form #appointmentForm="ngForm">
         <div class="mb-3">
             <label for="title" class="form-label">Título</label>
-            <input type="text" class="form-control" id="title">
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="appointment.title" required>
         </div>
-        <div class="mb-3">
-            <label for="record" class="form-label">Paciente</label>
-            <input type="text" class="form-control" id="record">
+        <div *ngIf="needRecordId">
+            <div class="mb-3">
+                <label for="recordId" class="form-label">Paciente</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="recordId" name="recordId" readonly required>
+                    <button class="btn btn-outline-secondary" type="button" id="openModal" (click)="open()">Buscar</button>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="start">Fecha de inicio</label>
             <div class="input-group">
-                <input id="start" class="form-control" type="datetime-local">
+                <input id="start" class="form-control" type="datetime-local" name="start" [(ngModel)]="appointment.start" required>
             </div>
         </div>
         <div class="mb-3">
             <label for="end">Fecha de fin</label>
             <div class="input-group">
-                <input id="end" class="form-control" type="datetime-local">
+                <input id="end" class="form-control" type="datetime-local" name="end" [(ngModel)]="appointment.end" required>
             </div>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Contenido</label>
+            <textarea class="form-control" id="content" name="content" [(ngModel)]="appointment.content"></textarea>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark">Agregar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="actionAppointment(appointmentForm)" [disabled]="appointmentForm.invalid">{{btn}}</button>
 </div>

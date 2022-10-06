@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nueva observación</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{action}} observación</h4>
 </div>
 <div class="modal-body">
     <form #observationForm="ngForm">
@@ -16,5 +16,5 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="addObservation(observationForm)">Agregar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="actionObservation(observationForm)">{{btn}}</button>
 </div>
