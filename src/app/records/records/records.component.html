@@ -29,7 +29,7 @@
                 <td>
                     <button type="button" class="btn btn-primary me-1" title="Consultar paciente" [routerLink]="['/records', record.id]"><span class="btn-label"><i class="bi bi-search"></i></span></button>
                     <button type="button" class="btn btn-info me-1" title="Agregar información" [routerLink]="['/record-add', record.id]"><span class="btn-label"><i class="bi bi-clipboard-plus"></i></span></button>
-                    <button type="button" class="btn btn-danger" title="Borrar paciente" (click)="deleteRecord(record)"><span class="btn-label"><i class="bi bi-trash3"></i></span></button>     
+                    <button type="button" class="btn btn-danger" title="Borrar paciente" (click)="deleteRecord(record)"><span class="btn-label"><i class="bi bi-trash"></i></span></button>     
                 </td>
             </tr>
         </tbody>
