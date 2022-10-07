@@ -17,7 +17,7 @@ export class RecordsService {
   constructor(private http: HttpClient, private readonly ownersService: OwnerService) { }
   
   getAll() : Observable<Record[]> {
-    return this.http.get<Record[]>(`${this.API_URL}/records?select=*`, {
+    return this.http.get<Record[]>(`${this.API_URL}/records?useYn=eq.true`, {
       headers: {
         'apiKey': this.API_KEY
       }
@@ -68,6 +68,12 @@ export class RecordsService {
         'apiKey': this.API_KEY
       }
     })
+  }
+
+  deleteRecords(id:number, record: Record){
+    const headers = { 'apiKey': this.API_KEY, 'content-type': 'application/json'}
+    const body = JSON.stringify(record)
+    return this.http.patch<void>(`${this.API_URL}/records?id=eq.${id}`, body, {'headers': headers})
   }
 
 }

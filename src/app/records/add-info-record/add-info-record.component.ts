@@ -21,7 +21,6 @@ import { Record } from 'src/app/interfaces/record';
 import { RecordsService } from 'src/app/services/records.service';
 import { Observation } from '../../interfaces/observations';
 import { ObservationComponent } from '../components/observation/observation.component';
-import { Owner } from 'src/app/interfaces/owner';
 import { OwnerService } from '../../services/owners.service';
 import { PhysicalExamComponent } from '../components/physical-exam/physical-exam.component';
 import { PhysicalExam } from '../../interfaces/physicalExam';
@@ -34,7 +33,6 @@ import { PhysicalExam } from '../../interfaces/physicalExam';
 export class AddInfoRecordComponent implements OnInit {
 
   record: Record = { name: '', birthday: '', yearsOld: 0, breed: '', genre: '', specie: '', color: '', ownerId: 0 }
-  owner: Owner = { firstname: '', lastnameF: '', lastnameM: '', address: '', email: '', telephone: '', cedula: 0 }
   appointments:Appointment[] = []
   generalData: AdditionalRecord = { observations: [], dewormings: [], injectables: [], physicalExams: [], exams: [] }
   urlAvatar!:string
@@ -56,7 +54,6 @@ export class AddInfoRecordComponent implements OnInit {
     this.activatedRouter.params.subscribe(({id}) => {
 
       let callRecords = this.recordsService.getById(id)
-      let callOwner = this.ownerService.getById(id)
       let callAppointments = this.appointmentsService.getByRecordId(id)
       let callDewormings = this.generalDataService.getDewormingByRecordId(id)
       let callInjectables = this.generalDataService.getInjectableByRecordId(id)
@@ -64,11 +61,10 @@ export class AddInfoRecordComponent implements OnInit {
       let callPhysicalExams = this.generalDataService.getPhysicalByRecordId(id)
       let callExams = this.generalDataService.getExamByRecordId(id)
 
-      zip(callRecords, callOwner, callAppointments, callDewormings, callInjectables, callObservations, callPhysicalExams, callExams).subscribe((
-        [results1, results2, results3, results4, results5, results6, results7, results8]) => {
+      zip(callRecords, callAppointments, callDewormings, callInjectables, callObservations, callPhysicalExams, callExams).subscribe((
+        [results1, results3, results4, results5, results6, results7, results8]) => {
         this.record = results1[0],
         this.petId = this.record.id!
-        this.owner = results2[0],
         this.appointments = results3
         this.generalData.dewormings = results4
         this.generalData.injectables = results5
@@ -159,6 +155,17 @@ export class AddInfoRecordComponent implements OnInit {
         break;
       }
 
+      case 6: {
+        this.appointmentsService.deleteAppointment(id).subscribe({
+          next: () => {
+            this.toastr.success('Se ha eliminado la cita.'),
+            this.appointmentsService.getByRecordId(this.petId).subscribe(data => this.appointments = data)
+          },
+          error: err => { console.warn('Error: ', err) }
+        })
+        break;
+      }
+
     }
 
   }
@@ -177,6 +184,7 @@ export class AddInfoRecordComponent implements OnInit {
 
     const modalRef = this.modalService.open(component)
     modalRef.componentInstance.needRecordId = false
+    modalRef.componentInstance.recordId = this.petId
     modalRef.componentInstance.emitService.subscribe((emmitedValue:any) => {
 
     if(arg == 1){
@@ -242,7 +250,7 @@ export class AddInfoRecordComponent implements OnInit {
     if(arg == 6){
       let appointment:Appointment = emmitedValue
       appointment.recordId = this.petId
-      console.log(appointment)
+      appointment.ownerId = this.record.ownerId
       this.appointmentsService.addAppointment(appointment).subscribe({
         next: () => {
           this.toastr.success('Se ha registrado la nueva cita.')
@@ -268,6 +276,10 @@ export class AddInfoRecordComponent implements OnInit {
 
     const modalRef = this.modalService.open(component)
     modalRef.componentInstance.data = object
+    if(arg == 6){
+      modalRef.componentInstance.needRecordId = false
+      modalRef.componentInstance.recordId = this.petId
+    }
 
     modalRef.componentInstance.emitService.subscribe((emmitedValue:any) => {
 
@@ -331,6 +343,18 @@ export class AddInfoRecordComponent implements OnInit {
         next: () => {
           this.toastr.success('Se ha modificado el medicamento/inyectable.')
           this.generalDataService.getInjectableByRecordId(this.petId).subscribe(data => this.generalData.injectables = data)
+        },
+        error: err => console.warn(err)
+      })
+    } else
+
+    if(arg == 6){
+      let appointment:Appointment = object
+      appointment.recordId = this.petId
+      this.appointmentsService.updateAppointment(appointment, appointment.id!).subscribe({
+        next: () => {
+          this.toastr.success('Se ha modificado la cita.')
+          this.appointmentsService.getByRecordId(this.petId).subscribe(data => this.appointments = data)
         },
         error: err => console.warn(err)
       })

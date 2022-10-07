@@ -18,6 +18,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr *ngIf="generalVaccines.length == 0 && readOnly">
+                        <td colspan="10">No hay información registrada.</td>
+                    </tr>
                     <tr *ngFor="let vaccine of generalVaccines; let i = index">
                         <td>
                             {{vaccine.yearsOld}} {{vaccine.unit}}

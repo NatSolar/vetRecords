@@ -29,7 +29,7 @@
                 <td>
                     <button type="button" class="btn btn-primary me-1" title="Consultar paciente" [routerLink]="['/owners', owner.id]"><span class="btn-label"><i class="bi bi-search"></i></span></button>
                     <button type="button" class="btn btn-success me-1" title="Editar paciente" [routerLink]="['/owner-edit', owner.id]"><span class="btn-label"><i class="bi bi-pencil-square"></i></span></button>
-                    <button type="button" class="btn btn-danger" title="Borrar paciente" (click)="deleteOwner(owner.id!)"><span class="btn-label"><i class="bi bi-trash3"></i></span></button>     
+                    <button type="button" class="btn btn-danger" title="Borrar paciente" (click)="deleteOwner(owner)"><span class="btn-label"><i class="bi bi-trash3"></i></span></button>     
                 </td>
             </tr>
         </tbody>

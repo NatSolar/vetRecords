@@ -6,8 +6,6 @@ import { AppointmentNewComponent } from './components/appointment-new/appointmen
 const routes: Routes = [
   { path: '', component: AppointmentsComponent},
   { path: 'appointment-new', component: AppointmentNewComponent},
-  //{ path: 'owner-new', component: OwnerNewComponent},
-  //{ path: 'owner-edit/:id', component: OwnerEditComponent},
   { path: '', redirectTo: '', pathMatch: 'full'}
 ];
 

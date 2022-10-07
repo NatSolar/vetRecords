@@ -5,7 +5,12 @@
     <form #injectableForm="ngForm">
         <div class="mb-3">
             <label for="name" class="form-label">Nombre de injectables o medicamento</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="injectable.name" required>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="injectable.name" required #name="ngModel">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback d-block">
+                <div *ngIf="name.errors?.['required']">
+                    El nombre es necesario.
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="regDt">Fecha de aplicación</label>

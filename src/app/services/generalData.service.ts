@@ -50,6 +50,14 @@ export class GeneralDataService {
     })
   }
 
+  deleteInjectableMedByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/injectables?recordId=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
   /* Dewormings */
 
   getDewormingByRecordId(id: number) : Observable<Deworming[]> {
@@ -74,6 +82,14 @@ export class GeneralDataService {
 
   deleteDeworming(id:number){
     return this.http.delete<void>(`${this.API_URL}/dewormings?id=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
+  deleteDewormingByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/dewormings?recordId=eq.${id}`, {
       headers: {
         'apiKey': this.API_KEY
       }
@@ -110,6 +126,14 @@ export class GeneralDataService {
     })
   }
 
+  deleteObservationByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/observations?recordId=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
   /* PhysicalExams */
 
   getPhysicalByRecordId(id: number) : Observable<PhysicalExam[]> {
@@ -134,6 +158,14 @@ export class GeneralDataService {
 
   deletePhysical(id:number){
     return this.http.delete<void>(`${this.API_URL}/physicalExams?id=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
+  deletePhysicalByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/physicalExams?recordId=eq.${id}`, {
       headers: {
         'apiKey': this.API_KEY
       }
@@ -170,6 +202,14 @@ export class GeneralDataService {
     })
   }
 
+  deleteExamByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/exams?recordId=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
   /* Vaccines */
 
   addVaccine(vaccine:Vaccines): Observable<Vaccines> {
@@ -188,6 +228,14 @@ export class GeneralDataService {
 
   deleteVaccine(id:number){
     return this.http.delete<void>(`${this.API_URL}/vaccines?id=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
+  deleteVaccineByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/vaccines?recordId=eq.${id}`, {
       headers: {
         'apiKey': this.API_KEY
       }

@@ -47,7 +47,6 @@
         [activeDayIsOpen]="activeDayIsOpen"
         (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)"
       >
       </mwl-calendar-month-view>
       <mwl-calendar-week-view
@@ -56,7 +55,6 @@
         [events]="events"
         [refresh]="refresh"
         (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)"
       >
       </mwl-calendar-week-view>
       <mwl-calendar-day-view
@@ -65,7 +63,6 @@
         [events]="events"
         [refresh]="refresh"
         (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)"
       >
       </mwl-calendar-day-view>
     </div>
@@ -79,19 +76,9 @@
       <div>
         <strong>Título: </strong> <pre>{{ modalData.event.title }}</pre>
       </div>
-      <!--<div>
-        <strong>Paciente: </strong> <pre>{{ modalData.event.title }}</pre>
-      </div>
-      <div>
-        <strong>Dueño: </strong> <pre>{{ modalData.event.title }}</pre>
-      </div>-->
       <div>
         <strong>Hora: </strong> <pre>{{ modalData.event.start | date:'short' }} - {{ modalData.event.end | date:'short' }}</pre>  
       </div>
-      <!--<div>
-        Event:
-        <pre>{{ modalData.event | json }}</pre>
-      </div>-->
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary" (click)="close()">

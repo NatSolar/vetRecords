@@ -5,7 +5,12 @@
     <form #observationForm="ngForm">
         <div class="mb-3">
             <label for="observation" class="form-label">Observación</label>
-            <input type="text" class="form-control" id="observation" name="observation" [(ngModel)]="observation.observation" required>
+            <input type="text" class="form-control" id="observation" name="observation" [(ngModel)]="observation.observation" required #title="ngModel">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="invalid-feedback d-block">
+                <div *ngIf="title.errors?.['required']">
+                    La observación es necesaria.
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="regDt">Fecha de aplicación</label>

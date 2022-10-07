@@ -6,5 +6,6 @@ export interface Owner {
     address: string,
     email: string,
     telephone: string,
-    cedula: number
+    cedula: number,
+    useYn?:boolean
 }

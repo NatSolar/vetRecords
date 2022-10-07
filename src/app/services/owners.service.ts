@@ -16,7 +16,7 @@ export class OwnerService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Owner[]>{
-    return this.http.get<Owner[]>(`${this.API_URL}/owners?select=*`, {
+    return this.http.get<Owner[]>(`${this.API_URL}/owners?useYn=eq.true`, {
       headers: {
         'apiKey': this.API_KEY
       }
@@ -49,6 +49,12 @@ export class OwnerService {
         'apiKey': this.API_KEY
       }
     })
+  }
+
+  deleteOwners(owner:Owner, id: number){
+    const headers = { 'apiKey': this.API_KEY, 'content-type': 'application/json'}
+    const body = JSON.stringify(owner)
+    return this.http.patch<void>(`${this.API_URL}/owners?id=eq.${id}`, body, {'headers': headers})
   }
 
 }

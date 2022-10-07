@@ -9,13 +9,15 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentsRoutingModule } from './appointments-routing.module';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { RecordSelectComponent } from './components/record-select/record-select.component';
 
 
 @NgModule({
   declarations: [
     AppointmentsComponent,
     AppointmentNewComponent,
-    CalendarComponent    
+    CalendarComponent,
+    RecordSelectComponent    
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,12 @@
     <div class="modal-body">
         <div class="mb-3">
             <label for="anthelmintic" class="form-label">Antihelmíntico</label>
-            <input type="text" class="form-control" id="anthelmintic" name="anthelmintic" [(ngModel)]="deworming.anthelmintic" required>
+            <input type="text" class="form-control" id="anthelmintic" name="anthelmintic" [(ngModel)]="deworming.anthelmintic" required #anthelmintic="ngModel">
+            <div *ngIf="anthelmintic.invalid && (anthelmintic.dirty || anthelmintic.touched)" class="invalid-feedback d-block">
+                <div *ngIf="anthelmintic.errors?.['required']">
+                    El antihelmíntico es necesario.
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="regDt">Fecha de aplicación</label>

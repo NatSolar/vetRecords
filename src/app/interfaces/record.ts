@@ -9,4 +9,5 @@ export interface Record {
     color: string,
     ownerId: number
     ownerNm?: string
+    useYn?:boolean
 }

@@ -5,7 +5,12 @@
     <form #physicalForm="ngForm">
         <div class="mb-3">
             <label for="weight" class="form-label">Peso</label>
-            <input type="number" class="form-control" id="weight" name="weight" [(ngModel)]="physicalExam.weight" required>
+            <input type="number" class="form-control" id="weight" name="weight" [(ngModel)]="physicalExam.weight" required #weight="ngModel">
+            <div *ngIf="weight.invalid && (weight.dirty || weight.touched)" class="invalid-feedback d-block">
+                <div *ngIf="weight.errors?.['required']">
+                    El peso es necesario.
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="regDt">Fecha de aplicación</label>

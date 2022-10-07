@@ -4,5 +4,5 @@ export interface Appointment {
     recordId: number,
     start: Date,
     end: Date,
-    content?: string
+    ownerId: number
 }

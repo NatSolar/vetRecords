@@ -5,13 +5,20 @@
     <form #appointmentForm="ngForm">
         <div class="mb-3">
             <label for="title" class="form-label">Título</label>
-            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="appointment.title" required>
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="appointment.title" required #title="ngModel">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="invalid-feedback d-block">
+                <div *ngIf="title.errors?.['required']">
+                    El título es necesario.
+                </div>
+            </div>
         </div>
         <div *ngIf="needRecordId">
             <div class="mb-3">
                 <label for="recordId" class="form-label">Paciente</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="recordId" name="recordId" readonly required>
+                    <input type="text" class="form-control" id="recordNm" name="recordNm" readonly required value="{{petNm}}">
+                    <input type="hidden" id="recordId" name="recordId" readonly required [(ngModel)]="appointment.recordId">
+                    <input type="hidden" id="ownerId" name="ownerId" readonly required [(ngModel)]="appointment.ownerId">
                     <button class="btn btn-outline-secondary" type="button" id="openModal" (click)="open()">Buscar</button>
                 </div>
             </div>
@@ -19,21 +26,20 @@
         <div class="mb-3">
             <label for="start">Fecha de inicio</label>
             <div class="input-group">
-                <input id="start" class="form-control" type="datetime-local" name="start" [(ngModel)]="appointment.start" required>
+                <input id="start" class="form-control" type="datetime-local" name="start" [(ngModel)]="appointment.start" required #start="ngModel">
             </div>
         </div>
         <div class="mb-3">
             <label for="end">Fecha de fin</label>
             <div class="input-group">
-                <input id="end" class="form-control" type="datetime-local" name="end" [(ngModel)]="appointment.end" required>
+                <input id="end" class="form-control" type="datetime-local" name="end" [(ngModel)]="appointment.end" required #end="ngModel">
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="content" class="form-label">Contenido</label>
-            <textarea class="form-control" id="content" name="content" [(ngModel)]="appointment.content"></textarea>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="actionAppointment(appointmentForm)" [disabled]="appointmentForm.invalid">{{btn}}</button>
+    <button type="button" class="btn btn-outline-dark me-1" (click)="actionAppointment(appointmentForm)" [disabled]="appointmentForm.invalid">{{btn}}</button>
+    <div *ngIf="needRecordId">
+        <a class="btn btn-secondary" (click)="goBack()">Regresar</a>
+    </div>
 </div>

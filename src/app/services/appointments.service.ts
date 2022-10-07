@@ -67,4 +67,12 @@ export class AppointmentsService {
     })
   }
 
+  deleteAppointmentByRecordId(id:number){
+    return this.http.delete<void>(`${this.API_URL}/appointments?recordId=eq.${id}`, {
+      headers: {
+        'apiKey': this.API_KEY
+      }
+    })
+  }
+
 }

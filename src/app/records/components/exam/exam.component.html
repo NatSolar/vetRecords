@@ -5,7 +5,12 @@
     <form #examForm="ngForm">
         <div class="mb-3">
             <label for="name" class="form-label">Nombre del examen</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="exam.name" required>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="exam.name" required #name="ngModel">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback d-block">
+                <div *ngIf="name.errors?.['required']">
+                    El nombre del examen es necesario.
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="start">Fecha de aplicación</label>
