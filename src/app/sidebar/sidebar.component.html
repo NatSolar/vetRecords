@@ -1,30 +1,27 @@
-<div class="d-flex flex-column flex-shrink-0 bg-light sticky-top min-vh-100">
-    <div class="d-flex flex-sm-column flex-row flex-nowrap align-items-center sticky-top">
-        <a href="/" class="d-block p-3" title="VetRecords">
-            <img src="../../../assets/images/VETRECORDS-Icon.png" style="width: 35px;" />
+<div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
+    <a href="/" class="d-block p-3" title="VetRecords">
+        <img src="../../../assets/images/VETRECORDS-Icon.png" style="width: 35px;" />
+    </a>
+    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+      <li class="nav-item">
+        <a routerLink="owners" class="nav-link py-3 px-2" title="Owners" routerLinkActive="active">
+            <i class="bi bi-person-circle fs-4"></i>
         </a>
-        <ul
-            class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-100 align-items-center">
-            <li>
-                <a routerLink="owners" class="nav-link py-3 px-2" title="Owners" routerLinkActive="active">
-                    <i class="bi bi-person-circle fs-4"></i>
-                </a>
-            </li>
-            <li>
-                <a routerLink="records" class="nav-link py-3 px-2" title="Records" routerLinkActive="active">
-                    <i class="bi bi-clipboard-plus fs-4"></i>
-                </a>
-            </li>
-            <li>
-                <a routerLink="appointments" class="nav-link py-3 px-2" title="Appointments" routerLinkActive="active">
-                    <i class="bi-table fs-4"></i>
-                </a>
-            </li>
-            <li>
-                <a routerLink="about" class="nav-link py-3 px-2" title="About" routerLinkActive="active">
-                    <i class="bi bi-question-circle fs-4"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+      </li>
+      <li>
+        <a routerLink="records" class="nav-link py-3 px-2" title="Records" routerLinkActive="active">
+            <i class="bi bi-clipboard-plus fs-4"></i>
+        </a>
+      </li>
+      <li>
+        <a routerLink="appointments" class="nav-link py-3 px-2" title="Appointments" routerLinkActive="active">
+            <i class="bi-table fs-4"></i>
+        </a>
+      </li>
+      <li>
+        <a routerLink="about" class="nav-link py-3 px-2" title="About" routerLinkActive="active">
+            <i class="bi bi-question-circle fs-4"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
