@@ -41,9 +41,8 @@ export class OwnerEditComponent implements OnInit {
             next: data => {
               if(data.length > 0){
                 for(let record of data){
-                  console.log(record)
                   record.ownerNm = ownerEdit.firstname + " " + ownerEdit.lastnameF + " " + ownerEdit.lastnameM
-                  this.recordsService.updateRecord(record, record.id!)
+                  this.recordsService.updateRecord(record, record.id!).subscribe(data => console.log(data))
                 }
               }
             },

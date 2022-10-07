@@ -45,9 +45,7 @@ export class OwnersComponent implements OnInit {
           },
           complete: () => {
             this.toastr.success('Se ha eliminado exitosamente el propietario.')
-            setTimeout(()=>{
-              location.reload();
-            }, 1000)
+            this.ownersService.getAll().subscribe(data => this.owners = data.sort((a, b) => a.id! - b.id!))
           }
         })
       },

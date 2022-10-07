@@ -31,9 +31,7 @@ export class RecordsComponent implements OnInit {
         this.appointmentService.deleteAppointmentByRecordId(record.id!).subscribe({
           complete: () => {
             this.toastr.success('Se ha eliminado el paciente.')
-            setTimeout(()=>{
-              location.reload();
-            }, 1000)
+            this.recordsService.getAll().subscribe(data => this.records = data.sort((a, b) => a.id! - b.id!))
           }
         })
       },
